@@ -1,13 +1,15 @@
 package namuton.namuwiki.domain.user.domain;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import namuton.namuwiki.domain.darkData.domain.DarkData;
+import namuton.namuwiki.domain.data.domain.Data;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
@@ -19,5 +21,11 @@ public class User {
     private String email;
     private String nickname;
     private String profileImg;
+
+    @OneToMany(mappedBy = "user")
+    private List<Data> darkList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<DarkData> darkDataList = new ArrayList<>();
 
 }
