@@ -1,5 +1,6 @@
 package namuton.namuwiki.domain.data.controller;
 
+import namuton.namuwiki.domain.darkData.domain.DarkData;
 import namuton.namuwiki.domain.data.domain.Data;
 import namuton.namuwiki.domain.data.repository.DataRepository;
 import namuton.namuwiki.domain.data.service.DataService;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class DataController {
@@ -34,7 +36,27 @@ public class DataController {
     private DataService dataService;
 
     @GetMapping("/filter")
-    public List<Data> getFilteredData() {
-        return dataService.getFilteredData();
+    public List<DarkData> getFilteredData() {
+        List<Data> filteredData = dataService.getFilteredData();
+
+        // Convert Data objects to DarkData objects
+        List<DarkData> darkDataList = filteredData.stream()
+                .map(this::convertToDarkData)
+                .collect(Collectors.toList());
+
+        return darkDataList;
+    }
+
+    // Convert Data to DarkData
+    private DarkData convertToDarkData(Data data) {
+        DarkData darkData = new DarkData();
+        darkData.setId(data.getId());
+        darkData.setUser(data.getUser());
+        darkData.setTitle(data.getTitle());
+        darkData.setContent(data.getContent());
+        darkData.setFrom(data.getFrom());
+        darkData.setDate(data.getDate());
+        darkData.setDeleted(false); // Assuming isDeleted is equivalent to deleted in DarkData
+        return darkData;
     }
 }
