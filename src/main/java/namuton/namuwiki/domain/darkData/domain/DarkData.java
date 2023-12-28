@@ -1,6 +1,7 @@
 package namuton.namuwiki.domain.darkData.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -22,10 +23,14 @@ public class DarkData {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
+    @JsonManagedReference
     private User user;
     private String title;
     private String content;
+
+    @Column(name = "source_from")
     private String from;
+
     private LocalDateTime date;
     private boolean isDeleted;
 }

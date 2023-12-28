@@ -1,6 +1,7 @@
 package namuton.namuwiki.domain.user.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -25,7 +26,8 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Data> darkList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
-    private List<DarkData> darkDataList = new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonBackReference
+    private List<DarkData> darkDataList;
 
 }

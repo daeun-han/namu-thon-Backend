@@ -1,6 +1,7 @@
 package namuton.namuwiki.domain.data.controller;
 
 import namuton.namuwiki.domain.darkData.domain.DarkData;
+import namuton.namuwiki.domain.darkData.repository.DarkDataRepository;
 import namuton.namuwiki.domain.data.domain.Data;
 import namuton.namuwiki.domain.data.repository.DataRepository;
 import namuton.namuwiki.domain.data.service.DataService;
@@ -20,6 +21,10 @@ public class DataController {
 
     @Autowired
     private DataRepository dataRepository;
+
+    @Autowired
+    private DarkDataRepository darkDataRepository;  // Inject DarkDataRepository
+
 
     @GetMapping("/info")
     public ResponseEntity<Data> getDataById(@RequestParam Long id) {
@@ -43,6 +48,9 @@ public class DataController {
         List<DarkData> darkDataList = filteredData.stream()
                 .map(this::convertToDarkData)
                 .collect(Collectors.toList());
+
+        // Save filtered data to DarkData repository
+        darkDataRepository.saveAll(darkDataList);
 
         return darkDataList;
     }
