@@ -5,13 +5,16 @@ import namuton.namuwiki.domain.data.repository.DataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DataService {
 
     @Autowired
     private DataRepository dataRepository;
 
-    public Data getDataById(Long id) {
-        return dataRepository.findById(id).orElse(null);
+    public List<Data> getFilteredData() {
+        String keyword = "광고";
+        return dataRepository.findByKeyword(keyword.toLowerCase());
     }
 }
