@@ -3,9 +3,8 @@ package namuton.namuwiki.domain.darkData.controller;
 import namuton.namuwiki.domain.darkData.domain.DarkData;
 import namuton.namuwiki.domain.darkData.service.DarkDataService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,7 +15,13 @@ public class DarkDataController {
     private DarkDataService darkDataService;
 
     @GetMapping("/darkdata/all")
-    public List<DarkData> getAllDarkData() {
-        return darkDataService.getAllDarkData();
+    public List<DarkData> getAllDarkData(@RequestParam(defaultValue = "0") int page) {
+        return darkDataService.getDarkDataByPage(page, 5);
+    }
+
+    @DeleteMapping("/darkdata/delete")
+    public ResponseEntity<String> deleteDarkData(@RequestParam Long id) {
+        darkDataService.deleteDarkDataById(id);
+        return ResponseEntity.ok("DarkData deleted successfully");
     }
 }
