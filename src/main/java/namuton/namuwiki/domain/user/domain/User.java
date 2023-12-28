@@ -22,6 +22,7 @@ public class User {
     private String email;
     private String nickname;
     private String profileImg;
+    private Long darkDataCnt;
 
     @OneToMany(mappedBy = "user")
     private List<Data> darkList = new ArrayList<>();
