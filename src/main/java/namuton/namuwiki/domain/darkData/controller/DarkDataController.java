@@ -5,6 +5,7 @@ import namuton.namuwiki.domain.darkData.service.DarkDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class DarkDataController {
     private DarkDataService darkDataService;
 
     @GetMapping("/darkdata/all")
-    public List<DarkData> getAllDarkData() {
-        return darkDataService.getAllDarkData();
+    public List<DarkData> getAllDarkData(@RequestParam(defaultValue = "0") int page) {
+        return darkDataService.getDarkDataByPage(page, 5);
     }
 }
