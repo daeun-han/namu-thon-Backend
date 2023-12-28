@@ -14,6 +14,6 @@ public class DarkDataService {
     private DarkDataRepository darkDataRepository;
 
     public List<DarkData> getAllDarkData() {
-        return darkDataRepository.findAll();
+        return darkDataRepository.findAllOrderByDateAsc();
     }
 }
