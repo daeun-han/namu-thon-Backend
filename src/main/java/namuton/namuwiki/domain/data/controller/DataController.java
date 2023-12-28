@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,10 +43,16 @@ public class DataController {
 
     @GetMapping("/filter")
     public List<DarkData> getFilteredData() {
+        // Get filtered data including both keywords and data from 6 months ago
         List<Data> filteredData = dataService.getFilteredData();
+        List<Data> dataFromSixMonthsAgo = dataService.getDataFromSixMonthsAgo();
+
+        // Merge the two lists
+        List<Data> mergedData = new ArrayList<>(filteredData);
+        mergedData.addAll(dataFromSixMonthsAgo);
 
         // Convert Data objects to DarkData objects
-        List<DarkData> darkDataList = filteredData.stream()
+        List<DarkData> darkDataList = mergedData.stream()
                 .map(this::convertToDarkData)
                 .collect(Collectors.toList());
 
