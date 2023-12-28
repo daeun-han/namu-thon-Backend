@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import namuton.namuwiki.domain.user.domain.User;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -20,6 +22,6 @@ public class DarkData {
     private String title;
     private String content;
     private String from;
-    private String date;
+    private LocalDateTime date;
     private boolean isDeleted;
 }

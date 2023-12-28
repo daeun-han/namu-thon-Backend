@@ -24,5 +24,5 @@ public class Data {
     private String title;
     private String content;
     private String from;
-    private String date;
+    private LocalDateTime date;
 }
